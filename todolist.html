@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>ToDO</title>
+    <style>
+    .box2{
+   
+    
+        border-radius: 10px  ;
+        border: solid white;
+        padding-left: 10px;
+        margin-left: 10%;
+        color: black;
+        
+        
+        }
+        .box4{
+           
+            
+           border-radius: 10px  ;
+           border: solid white;
+           padding-left: 10px;
+           margin-left: 10%;
+           color: black;
+            
+           
+           
+           }
+           
+    </style>
+</head>
+<body>
+    <div class="box3">
+        <p>My List</p>
+    </div>
+    <div class="box4">
+        
+        <ul class="here"></ul>
+        
+        <input type="text" id="text">
+        <button id="add">Add</button>
+        <br>
+        <br>
+    </div>
+    <script>
+        let text=document.getElementById('text');
+        let btn=document.getElementById('add');
+        let p=document.querySelector('.here');
+        let cont=1;
+        btn.onclick= function (){
+            let inp=text.value;
+            let htm=`<li>${cont}. ${inp}</li>`;
+            let neew=document.createElement("li");
+            neew.innerHTML=htm;
+            p.insertAdjacentElement("beforeend", neew);
+            cont++;
+          
+            text.value="";
+           return;
+        }
+        p.onclick=function (e){
+            let clickedItem = e.target;
+      clickedItem.style.textDecoration = "line-through";
+        }
+          
+        </script>
+    </body>
+    </html>
