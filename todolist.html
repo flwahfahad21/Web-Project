@@ -1,69 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <title>ToDO</title>
     <style>
-    .box2{
-   
-    
-        border-radius: 10px  ;
-        border: solid white;
-        padding-left: 10px;
-        margin-left: 10%;
-        color: black;
-        
-        
+        .box1 {
+            border-radius: 10px;
+            border: solid white;
+            padding-left: 10px;
+            margin-left: 10%;
+            color: black;
         }
-        .box4{
-           
-            
-           border-radius: 10px  ;
-           border: solid white;
-           padding-left: 10px;
-           margin-left: 10%;
-           color: black;
-            
-           
-           
-           }
-           
+        .box2 {
+            border-radius: 10px;
+            border: solid white;
+            padding-left: 10px;
+            margin-left: 10%;
+            color: black;
+        }
+        .instructions {
+            font-size: 14px;
+            color: #555;
+            margin-left: 10%;
+        }
     </style>
 </head>
 <body>
-    <div class="box3">
+    <div class="box1">
         <p>My List</p>
     </div>
-    <div class="box4">
-        
+    <div class="box2">
         <ul class="here"></ul>
-        
         <input type="text" id="text">
         <button id="add">Add</button>
+        <div class="instructions">
+            <p><strong>Instructions:</strong></p>
+            <ul>
+                <li>Right-click on an item to delete it.</li>
+                <li>Click on an item to toggle a strikethrough effect.</li>
+            </ul>
+        </div>
         <br>
         <br>
     </div>
     <script>
-        let text=document.getElementById('text');
-        let btn=document.getElementById('add');
-        let p=document.querySelector('.here');
-        let cont=1;
-        btn.onclick= function (){
-            let inp=text.value;
-            let htm=`<li>${cont}. ${inp}</li>`;
-            let neew=document.createElement("li");
-            neew.innerHTML=htm;
+        let text = document.getElementById('text');
+        let btn = document.getElementById('add');
+        let p = document.querySelector('.here');
+        let cont = 1;
+
+        btn.onclick = function () {
+            let inp = text.value;
+            let htm = ` ${inp}`;
+            let neew = document.createElement("li");
+            neew.innerHTML = htm;
             p.insertAdjacentElement("beforeend", neew);
-            cont++;
-          
-            text.value="";
-           return;
+           
+            text.value = "";
+            return;
         }
-        p.onclick=function (e){
-            let clickedItem = e.target;
-      clickedItem.style.textDecoration = "line-through";
-        }
-          
-        </script>
-    </body>
-    </html>
+
+        // Adding click event for deleting items
+        p.addEventListener('contextmenu', function (e) {
+            e.preventDefault(); // Prevents the default context menu
+            if (e.target.tagName === 'LI') {
+                e.target.remove(); // Removes the clicked list item
+            }
+        });
+
+        // Optionally, you can also add a click event to toggle a strikethrough effect
+        p.addEventListener('click', function (e) {
+            if (e.target.tagName === 'LI') {
+                e.target.style.textDecoration = e.target.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+            }
+        });
+    </script>
+</body>
+</html>
