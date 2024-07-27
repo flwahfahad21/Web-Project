@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Course Schedule</title>
+  <style>
+    body {
+      
+      font-family: cursive;
+      margin: 0;
+      padding: 20px;
+    }
+    h1{
+      color: #7db4ac;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    .course-cell {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    
+    
+    .form-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      font-weight: bold;
+    }
+    
+    .form-group input,
+    .form-group select {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-gap: 10px;
+    }
+    
+    .days label {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .days input[type="checkbox"] {
+      display: none;
+    }
+    
+    .days input[type="checkbox"]:checked + label {
+      background-color: #7db4ac;
+      color: #fff;
+    }
+    
+    .add-course {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Course Schedule</h1>
+    <form id="course-form">
+      <div class="form-group">
+        <label for="course-name">Course Name:</label>
+        <input type="text" id="course-name" name="course-name" required>
+      </div>
+      <div class="form-group">
+        <label for="section">Number of class:</label>
+        <input type="text" id="section" name="section" required>
+      </div>
+      <div class="form-group">
+        <label for="time-range">Time Range:</label>
+        <input type="time" id="start-time" name="start-time" required>
+        to
+        <input type="time" id="end-time" name="end-time" required>
+      </div>
+      <div class="form-group">
+        <label for="days">Days:</label>
+        <div class="days">
+          <div>
+            <input type="checkbox" id="Sunday" name="days" value="Sunday">
+            <label for="Sunday">Su</label>
+          </div>
+          <div>
+            <input type="checkbox" id="Monday" name="days" value="Monday">
+            <label for="Monday">M</label>
+          </div>
+          <div>
+            <input type="checkbox" id="Tuesday" name="days" value="Tuesday">
+            <label for="Tuesday">T</label>
+          </div>
+          <div>
+            <input type="checkbox" id="Wednesday" name="days" value="Wednesday">
+            <label for="Wednesday">W</label>
+          </div>
+          <div>
+            <input type="checkbox" id="Thursday" name="days" value="Thursday">
+            <label for="Thursday">Th</label>
+          </div>
+          <div>
+            <input type="checkbox" id="Friday" name="days" value="Friday">
+            <label for="Friday">F</label>
+          </div>
+          <div>
+            <input type="checkbox" id="Saturday" name="days" value="Saturday">
+            <label for="Saturday">Sa</label>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="add-course" onclick="addCourse()">Add Course</button>
+    </form>
+    <br>
+    <table id="schedule-table" style="display: none;">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody id="schedule-body"></tbody>
+    </table>
+  </div>
+
+  <script>
+    function addCourse() {
+      const courseName = document.getElementById('course-name').value;
+      const section = document.getElementById('section').value;
+      const startTime = document.getElementById('start-time').value;
+      const endTime = document.getElementById('end-time').value;
+      const days = Array.from(document.querySelectorAll('input[name="days"]:checked')).map(checkbox => checkbox.value);
+
+      if (!courseName || !section || !startTime || !endTime || days.length === 0) {
+        alert('Please fill in all the required fields.');
+        return;
+      }
+
+      const scheduleTable = document.getElementById('schedule-table');
+      scheduleTable.style.display = 'table';
+
+      const scheduleBody = document.getElementById('schedule-body');
+      const newRow = document.createElement('tr');
+      const timeCell = document.createElement('td');
+      timeCell.textContent = `${startTime} - ${endTime}`;
+      newRow.appendChild(timeCell);
+
+      for (let i = 0; i < 7; i++) {
+        const dayCell = document.createElement('td');
+        if (days.includes(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][i])) {
+          dayCell.textContent = `${courseName} (${section})`;
+          dayCell.classList.add('course-cell');
+          dayCell.classList.add(`day-${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][i].toLowerCase()}`);
+        }
+        newRow.appendChild(dayCell);
+      }
+
+      scheduleBody.appendChild(newRow);
+
+      document.getElementById('course-name').value = '';
+      document.getElementById('section').value = '';
+      document.getElementById('start-time').value = '';
+      document.getElementById('end-time').value = '';
+      document.querySelectorAll('input[name="days"]').forEach(checkbox => checkbox.checked = false);
+    }
+  </script>
+</body>
+</html>
+
+
