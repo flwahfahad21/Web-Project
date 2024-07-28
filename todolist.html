@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>ToDO</title>
+    <style>
+    body{
+        background-color: rgb(252, 215, 221);
+    }
+  
+    .container{
+    width: 90%;
+    height: 90px;
+    background-color: rgb(252, 215, 221);
+
+    padding-left: 8%;
+    padding-right: 8%;
+    box-sizing: border-box;
+}
+.header{
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    color: rgb(255, 246, 163);
+    font-weight: bold;
+   
+}
+.header h1{
+    font-size: 50px;
+    font-weight: bold;
+}
+.logo{
+    width: 100px;
+    cursor: pointer;
+
+}
+
+.navbar a{
+    padding: 6px 10px;
+    text-decoration: none;
+    color:white;
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+.btn{
+    cursor: pointer;
+    color: wheat;
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding: 10px 30px;
+    border: 2px solid whitesmoke;
+    background: transparent;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    margin: 40px 8px; 
+    background: linear-gradient(to right, rgb(252, 215, 221), #fdbf45);
+    border-radius: 10px;
+    
+    
+}
+.btn:hover{
+    color: #000;  
+    background-color: #fff;
+}
+.btn a:visited{
+    background-color: #fff;
+    margin-top: 12%;
+}
+.btn a:hover{
+   color: wheat;
+    margin-top: 12%;
+}
+.btn a:link{
+    text-decoration: none;
+    color: wheat;
+   
+}
+    .box2{
+        border-radius: 10px  ;
+        border: solid white;
+        padding-left: 10px;
+        margin-left: 10%;
+        color: black;    
+    }
+    .box4{
+        border-radius: 10px  ;
+        border: solid white;
+       
+        padding-left: 480px;
+        margin-left: 10%;
+        color: black; 
+    }
+    .box3 h1{
+    text-align: center;
+    font-size: 24px;
+    color: rgb(255, 246, 163);
+    }
+    .navbar a{
+    padding: 6px 20px;
+    text-decoration: none;
+    color:white;
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+    .add{
+        border: solid white;
+        background: linear-gradient(to right, rgb(252, 215, 221), #fdbf45);
+        border-radius: 10px;
+    }
+    .text{
+        border-radius: 10px;
+        border: solid white;
+        
+    }
+          
+    </style>
+</head>
+ <body>
+    <div class="box3">
+        <div class="container">
+            <div class="header">
+                <h1>Let's do</h1>
+                <div class="navbar">
+                    <a href="Home .html">Home</a>
+                    <a href="to-dolist.html">Courses</a>
+                    <a href="todolist.html">To-Do</a>
+                    
+                </div>
+                <button class="btn"><a href="login.html">Logout</a></button>
+            </div>
+        </div>
+        <h1>My List</h1>
+    </div>
+    <div class="box4">
+        
+        <ul class="here"></ul>
+        
+        <input type="text" id="text" class="text">
+        <button id="add" class="add">Add</button>
+        <br>
+        <br>
+    </div>
+    <script>
+        let text=document.getElementById('text');
+        let btn=document.getElementById('add');
+        let p=document.querySelector('.here');
+        let cont=1;
+        btn.onclick= function (){
+            let inp=text.value;
+            let htm=`<li>${cont}. ${inp}</li>`;
+            let neew=document.createElement("li");
+            neew.innerHTML=htm;
+            p.insertAdjacentElement("beforeend", neew);
+            cont++;
+          
+            text.value="";
+           return;
+        }
+        p.onclick=function (e){
+            let clickedItem = e.target;
+            clickedItem.style.textDecoration = "line-through";
+        }
+          
+        </script>
+    </body>
+</html>
